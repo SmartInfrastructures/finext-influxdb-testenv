@@ -4,6 +4,9 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
 
+  # Do not update guest addition on the guest
+  config.vbguest.auto_update = false
+
   BOX_COUNT = 1
   (1..BOX_COUNT).each do |machine_id|
     config.vm.define "influx#{machine_id}" do |machine|
