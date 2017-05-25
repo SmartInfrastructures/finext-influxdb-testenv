@@ -1,39 +1,39 @@
 * Introduction
   This project aims at creating a reproducible environment where to test InfluxDB features, in particular "[[https://docs.influxdata.com/influxdb/v1.2/guides/downsampling_and_retention/][Downsampling and Data Retention]]", in the context of FI-Next project. Main objectives of this analysis are:
   1) Increase performance when querying FIWARE Lab historical data
-  2)Consolidate in a single data store both the real-time and the historical data
+  2) Consolidate in a single data store both the real-time and the historical data
 * What's inside
   Automatic deployment, based on [[https://www.vagrantup.com/][Vagrant]], will give you a virtual machine with InfluxDB installed and a sample database: =sample_database= containing random data.
 
   Once the virtual machine is created, you can interact with the InfluxDB and explore the data following this steps:
 
-  Access the vm
-  #+BEGIN_SRC sh
-  vagrant ssh
-  #+END_SRC
+  - Access the vm
+    #+BEGIN_SRC sh
+    vagrant ssh
+    #+END_SRC
 
-  Access the InfluxDB CLI
-  #+BEGIN_SRC sh
-  influx
-  #+END_SRC
+  - Access the InfluxDB CLI
+    #+BEGIN_SRC sh
+    influx
+    #+END_SRC
 
-  Read current data
-  #+BEGIN_SRC sql
-  use sample_database
-  #+END_SRC
+  - Read current data
+    #+BEGIN_SRC sql
+    use sample_database
+    #+END_SRC
 
-  #+BEGIN_SRC sql
-  SELECT * FROM "sample_database"
-  #+END_SRC
+    #+BEGIN_SRC sql
+    SELECT * FROM "sample_database"
+    #+END_SRC
 
-  Insert new data
-  #+BEGIN_SRC sql
-  INSERT cpu,host=serverA,region=us_west value=0.64
-  #+END_SRC
+  - Insert new data
+    #+BEGIN_SRC sql
+    INSERT cpu,host=serverA,region=us_west value=0.64
+    #+END_SRC
 
-  #+BEGIN_SRC sql
-  SELECT "host", "region", "value" FROM "cpu"
-  #+END_SRC
+    #+BEGIN_SRC sql
+    SELECT "host", "region", "value" FROM "cpu"
+    #+END_SRC
 
 * Requirements
   - Vagrant
