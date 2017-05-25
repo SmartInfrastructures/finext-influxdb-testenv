@@ -47,9 +47,9 @@
 
 ** Virtualbox
    - Start as usual with
-   #+BEGIN_SRC sh
-   vagrant up
-   #+END_SRC
+     #+BEGIN_SRC sh
+     vagrant up
+     #+END_SRC
 
 ** Openstack
    - Source an Openstack credential file
