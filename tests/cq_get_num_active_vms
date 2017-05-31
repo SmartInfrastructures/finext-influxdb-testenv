@@ -1,0 +1,4 @@
+CREATE CONTINUOUS QUERY "cq_basic" ON "sample_database"
+BEGIN
+  SELECT count("value") INTO "one_month"."active_vms" FROM "vms" WHERE "value"=1 GROUP BY time(1h)
+END
