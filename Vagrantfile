@@ -27,7 +27,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "openstack"
 
   # Do not update guest addition on the guest
-  config.vbguest.auto_update = false
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = false
+  end
 
   # By default, Vagrant itself assumes that sudo requires no
   # password, therefore it does not need a tty. Some OS images
