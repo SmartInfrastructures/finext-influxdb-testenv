@@ -8,7 +8,7 @@
 
     - name: set hostname
       hostname:
-        name={{ short_hostname }}
+        name={{ full_hostname }}
 
     - name: add hostname to /etc/hosts
       become: yes
@@ -47,7 +47,7 @@
 
     - name: Load some test data into sample database
       uri:
-        url: http://{{ ansible_hostname }}:8086/write?db=sample_database
+        url: http://{{ full_hostname }}:8086/write?db=sample_database
         method: POST
         body: "random_ints,host=server_{{ 10 | random }} value={{ 100 | random }}"
         status_code: 204
