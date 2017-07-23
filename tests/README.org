@@ -1,0 +1,17 @@
+* Notes about our Influxdb installations
+We installed the 0.9.5 Influxdb version on our test server, but during backup restoring, we got the following error:\\
+restoring from snapshot hangs forever on [metastore] 2017/07/16 10:47:13 temporary accept error: listener closing
+
+We solved using the 0.9.6 version, that was not simple to be found and where the previous bug was solved:\\ 
+- wget https://dl.influxdata.com/influxdb/releases/influxdb_0.9.6_amd64.deb
+- sudo dpkg -i influxdb_0.9.6_amd64.deb
+- sudo influxd restore -config /etc/influxdb/influxdb.conf my_backup
+
+As root we changed influxdb folder permissions:\\
+- cd /var/lib/influxdb
+- chown -R influxdb:influxdb *
+
+And we started the influxdb service:\\
+- service influxdb start
+
+We were not able to import the db snapshot in the 1.2 Influxdb version, because first it needs to be imported in the 0.10 version, exported again in another format and finally imported in the 1.2 version. These steps can be found here: https://docs.influxdata.com/influxdb/v1.2/administration/upgrading/#upgrade-from-0-10-or-0-11-to-1-2 where a note says:"0.10 users will need to convert any remaining b1 and bz1 shards to TSM format before following the instructions below. InfluxDB 1.2 cannot read non-TSM shards." and tsm1 storage engine was introduced only starting from the 0.10 version (as reported here https://docs.influxdata.com/influxdb/v0.10/administration/upgrading/#convert-b1-and-bz1-shards-to-tsm1).
