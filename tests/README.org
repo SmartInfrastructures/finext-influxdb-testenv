@@ -17,7 +17,7 @@ And we started the influxdb service:\\
 We were not able to import the db snapshot in the 1.2 Influxdb version, because first it needs to be imported in the 0.10 version, exported again in another format and finally imported in the 1.2 version. These steps can be found here: https://docs.influxdata.com/influxdb/v1.2/administration/upgrading/#upgrade-from-0-10-or-0-11-to-1-2 where a note says:"0.10 users will need to convert any remaining b1 and bz1 shards to TSM format before following the instructions below. InfluxDB 1.2 cannot read non-TSM shards." and tsm1 storage engine was introduced only starting from the 0.10 version (as reported here https://docs.influxdata.com/influxdb/v0.10/administration/upgrading/#convert-b1-and-bz1-shards-to-tsm1).
 * Import issues
 ** Influx is not able to start due to lacking of Raft consistency
-   Report of the issues encountered on 20170829 including all step followed:
+   /Report of the issues encountered on 20170829 including all step followed./
 
    1) After importing the database or not all data in the database is available. E.g.: missing =MEASUREMENTS=.
    2) In the Influxd log at =/var/log/influxdb/influxd.log/= there are traces reporting =Connection refused= errors on the IP address of the server where the backup has been created. Of course this IP is not available on the target server, where the backup has just been restored.
