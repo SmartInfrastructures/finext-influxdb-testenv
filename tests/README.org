@@ -50,3 +50,45 @@ We were not able to import the db snapshot in the 1.2 Influxdb version, because 
    - https://stackoverflow.com/questions/39501416/how-to-restore-data-base-using-influxd
    - https://github.com/influxdata/influxdb/issues/6373
    - https://github.com/influxdata/influxdb/issues/5400
+** Influx log report errors about inconsistency between localhost and 192.168.122.13
+   /Report of the issues encountered on 20170915/
+
+   *Issue:*
+   - In logs we have:
+     #+BEGIN_EXAMPLE
+     "ERR: read response size: read tcp 127.0.0.1:8088: connection reset by peer"
+     #+END_EXAMPLE
+   - File =/var/lib/influxdb/meta/peers.json= contains two IPs:
+     #+BEGIN_EXAMPLE
+     ["localhost:8088","192.168.122.13:8088"]
+     #+END_EXAMPLE
+
+   *Solution:*
+   - Stop the server
+     #+BEGIN_SRC shell
+     service influxdb stop
+     #+END_SRC
+
+   - It is mandatory to configure the correct IP in the =[meta]= section in =influxdb.conf= as follow:
+     #+BEGIN_EXAMPLE
+     [meta]
+     dir = "/var/lib/influxdb/meta"
+     hostname = "192.168.122.13"
+     bind-address = "192.168.122.13:8088"
+     retention-autocreate = true
+     election-timeout = "1s"
+     heartbeat-timeout = "1s"
+     leader-lease-timeout = "500ms"
+     commit-timeout = "50ms"
+     cluster-tracing = false
+     #+END_EXAMPLE
+
+   - Delete the peers.json file
+     #+BEGIN_SRC shell
+     rm /var/lib/influxdb/meta/peers.json
+     #+END_SRC
+
+   - Start the server
+     #+BEGIN_SRC shell
+     service influxdb start
+     #+END_SRC
