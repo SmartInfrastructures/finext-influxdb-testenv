@@ -92,3 +92,6 @@ We were not able to import the db snapshot in the 1.2 Influxdb version, because 
      #+BEGIN_SRC shell
      service influxdb start
      #+END_SRC
+
+   References:
+   - https://github.com/influxdata/influxdb/issues/4903
